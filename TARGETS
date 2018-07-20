@@ -1,0 +1,44 @@
+cc_library(
+    name='gtest',
+    srcs=[
+        'googletest/googletest/src/gtest-all.cc',
+        'googletest/googletest/src/gtest_main.cc',
+    ],
+    compiler_flags=[
+        '-Isrc/github.com/apronchenkov/third_party/googletest/googletest',
+        '-Wno-missing-field-initializers',
+    ],
+    transitive_compiler_flags=[
+        '-isystem src/github.com/apronchenkov/third_party/googletest/googletest/include',
+    ], )
+
+cc_library(
+    name='rapidjson',
+    transitive_compiler_flags=[
+        '-isystem src/github.com/apronchenkov/third_party/rapidjson/include',
+    ], )
+
+cc_library(
+    name='eigen',
+    transitive_compiler_flags=[
+        '-isystem src/github.com/apronchenkov/third_party/eigen-include',
+    ], )
+
+cc_library(
+    name='http_parser',
+    srcs=[
+        'http-parser/http_parser.c',
+    ],
+    compiler_flags=[
+        '-isystem src/github.com/apronchenkov/third_party/http-parser-include/http_parser',
+    ],
+    transitive_compiler_flags=[
+        '-isystem src/github.com/apronchenkov/third_party/http-parser-include',
+        '-DHTTP_MAX_HEADER_SIZE=4096',
+    ], )
+
+cc_library(
+    name='uthash',
+    transitive_compiler_flags=[
+        '-isystem src/github.com/apronchenkov/third_party/uthash-include',
+    ], )
