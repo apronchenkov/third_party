@@ -42,3 +42,40 @@ cc_library(
     transitive_compiler_flags=[
         '-isystem src/github.com/apronchenkov/third_party/uthash-include',
     ], )
+
+cc_library(
+    name='fmt',
+    srcs=[
+        'fmt/src/format.cc',
+        'fmt/src/posix.cc',
+    ],
+    transitive_compiler_flags=[
+        '-isystem src/github.com/apronchenkov/third_party/fmt/include',
+    ],
+    compiler_flags=[
+        '-Weverything',
+        '-Wpedantic',
+        '-Wno-weak-vtables',
+        '-Wno-padded',
+        '-Wno-gnu-statement-expression',
+        '-Wno-c++98-compat',
+        '-Wno-c++98-compat-pedantic',
+        '-Wno-reserved-id-macro',
+        '-Wno-global-constructors',
+        '-Wno-disabled-macro-expansion',
+        '-Wno-switch-enum',
+        '-Wno-documentation-unknown-command',
+        '-Wno-gnu-string-literal-operator-template',
+        '-Wno-unused-member-function',
+        '-Wno-format-nonliteral',
+        '-Wno-missing-noreturn',
+        '-Wno-undefined-func-template',
+        '-Wno-shadow',
+        '-Wno-sign-conversion',
+        '-Wno-used-but-marked-unused',
+        '-Wno-covered-switch-default',
+        '-Wno-missing-variable-declarations',
+        '-Wno-double-promotion',
+        '-Wno-zero-as-null-pointer-constant',
+        '-Wno-gnu-string-literal-operator-template',
+    ], )

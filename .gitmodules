@@ -13,3 +13,6 @@
 [submodule "uthash"]
 	path = uthash
 	url = https://github.com/troydhanson/uthash.git
+[submodule "fmt"]
+	path = fmt
+	url = https://github.com/fmtlib/fmt.git
