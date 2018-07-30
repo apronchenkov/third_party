@@ -79,3 +79,25 @@ cc_library(
         '-Wno-zero-as-null-pointer-constant',
         '-Wno-gnu-string-literal-operator-template',
     ], )
+
+
+cc_library(
+    name='double_conversion',
+    srcs=[
+        'double-conversion/double-conversion/bignum.cc',
+        'double-conversion/double-conversion/bignum-dtoa.cc',
+        'double-conversion/double-conversion/cached-powers.cc',
+        'double-conversion/double-conversion/diy-fp.cc',
+        'double-conversion/double-conversion/double-conversion.cc',
+        'double-conversion/double-conversion/fast-dtoa.cc',
+        'double-conversion/double-conversion/fixed-dtoa.cc',
+        'double-conversion/double-conversion/strtod.cc',
+    ],
+    transitive_compiler_flags=[
+        '-isystem src/github.com/apronchenkov/third_party/double-conversion-include',
+    ],
+    compiler_flags=[
+        '-Wall',
+        '-Werror',
+        '-O3',
+    ], )
