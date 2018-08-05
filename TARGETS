@@ -30,6 +30,7 @@ cc_library(
         'http-parser/http_parser.c',
     ],
     compiler_flags=[
+        '-DNDEBUG',
         '-isystem src/github.com/apronchenkov/third_party/http-parser-include/http_parser',
     ],
     transitive_compiler_flags=[
@@ -53,6 +54,7 @@ cc_library(
         '-isystem src/github.com/apronchenkov/third_party/fmt/include',
     ],
     compiler_flags=[
+        '-DNDEBUG=1',
         '-Weverything',
         '-Wpedantic',
         '-Wno-weak-vtables',
@@ -80,7 +82,6 @@ cc_library(
         '-Wno-gnu-string-literal-operator-template',
     ], )
 
-
 cc_library(
     name='double_conversion',
     srcs=[
@@ -100,4 +101,55 @@ cc_library(
         '-Wall',
         '-Werror',
         '-O3',
+        '-DNDEBUG',
     ], )
+
+SQLITE_COMPILER_FLAGS = [
+    '-O3',
+    '-Wno-unused-parameter',
+    '-Wno-overlength-strings',
+    '-DNDEBUG=1',
+    # Recommended Compile-time Options (https://www.sqlite.org/compile.html)
+    '-DSQLITE_THREADSAFE=0',
+    '-DSQLITE_DEFAULT_MEMSTATUS=0',
+    '-DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1',
+    '-DSQLITE_LIKE_DOESNT_MATCH_BLOBS',
+    '-DSQLITE_MAX_EXPR_DEPTH=0',
+    '-DSQLITE_OMIT_DECLTYPE',
+    '-DSQLITE_OMIT_DEPRECATED',
+    '-DSQLITE_OMIT_PROGRESS_CALLBACK',
+    '-DSQLITE_OMIT_SHARED_CACHE',
+    '-DSQLITE_USE_ALLOCA',
+    # Platform Configuration
+    '-DHAVE_FDATASYNC=1',
+    '-DHAVE_GMTIME_R=1',
+    '-DHAVE_ISNAN=1',
+    '-DHAVE_LOCALTIME_R=1',
+    '-DHAVE_READLINE=1',
+    '-DUSLEEP=1',
+]
+
+cc_library(
+    name='sqlite',
+    srcs=[
+        'sqlite-amalgamation/sqlite3.c',
+    ],
+    transitive_compiler_flags=[
+        '-isystem src/github.com/apronchenkov/third_party/sqlite-include',
+    ],
+    compiler_flags=[
+        '-Isrc/github.com/apronchenkov/third_party/sqlite-include',
+    ] + SQLITE_COMPILER_FLAGS, )
+
+# cc_binary(
+#     name='sqlite_shell',
+#     srcs=[
+#         'sqlite-amalgamation/shell.c',
+#     ],
+#     deps=[
+#         ':sqlite',
+#     ],
+#     compiler_flags=SQLITE_COMPILER_FLAGS,
+#     linker_flags=[
+#         '-lreadline',
+#     ], )

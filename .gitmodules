@@ -19,3 +19,6 @@
 [submodule "double-conversion"]
 	path = double-conversion
 	url = https://github.com/google/double-conversion.git
+[submodule "sqlite-amalgamation"]
+	path = sqlite-amalgamation
+	url = https://github.com/azadkuh/sqlite-amalgamation.git
