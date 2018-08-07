@@ -55,7 +55,8 @@ cc_library(
     ],
     compiler_flags=[
         '-DNDEBUG=1',
-        '-Weverything',
+        '-Wall',
+        '-Wextra',
         '-Wpedantic',
         '-Wno-weak-vtables',
         '-Wno-padded',
@@ -153,3 +154,15 @@ cc_library(
 #     linker_flags=[
 #         '-lreadline',
 #     ], )
+
+cc_library(
+    name='asio',
+    srcs=[
+        'asio/asio/src/asio.cpp',
+        'asio/asio/src/asio_ssl.cpp',
+    ],
+    transitive_compiler_flags=[
+        '-DASIO_STANDALONE',
+        '-DASIO_SEPARATE_COMPILATION',
+        '-isystem src/github.com/apronchenkov/third_party/asio/asio/include',
+    ], )
