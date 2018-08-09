@@ -155,6 +155,45 @@ cc_library(
 #         '-lreadline',
 #     ], )
 
+# crypto/ssl
+import os
+if os.uname().sysname == 'Darwin':
+    cc_library(
+        name='crypto',
+        transitive_compiler_flags=[
+            '-isystem /usr/local/opt/openssl/include',
+        ],
+        linker_flags=[
+            '-L/usr/local/opt/openssl/lib',
+            '-lcrypto',
+        ], )
+    cc_library(
+        name='ssl',
+        transitive_compiler_flags=[
+            '-isystem /usr/local/opt/openssl/include',
+        ],
+        linker_flags=[
+            '-L/usr/local/opt/openssl/lib',
+            '-lssl',
+        ],
+        deps=[
+            ':crypto',
+        ], )
+else:
+    cc_library(
+        name='crypto',
+        linker_flags=[
+            '-lcrypto',
+        ], )
+    cc_library(
+        name='ssl',
+        linker_flags=[
+            '-lssl',
+        ],
+        deps=[
+            ':crypto',
+        ], )
+
 cc_library(
     name='asio',
     srcs=[
@@ -165,4 +204,7 @@ cc_library(
         '-DASIO_STANDALONE',
         '-DASIO_SEPARATE_COMPILATION',
         '-isystem src/github.com/apronchenkov/third_party/asio/asio/include',
+    ],
+    deps=[
+        ':ssl',
     ], )
