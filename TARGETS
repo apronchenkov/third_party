@@ -9,19 +9,19 @@ cc_library(
         '-Wno-missing-field-initializers',
     ],
     transitive_compiler_flags=[
-        '-isystem src/github.com/apronchenkov/third_party/googletest/googletest/include',
+        '-I src/github.com/apronchenkov/third_party/googletest/googletest/include',
     ], )
 
 cc_library(
     name='rapidjson',
     transitive_compiler_flags=[
-        '-isystem src/github.com/apronchenkov/third_party/rapidjson/include',
+        '-I src/github.com/apronchenkov/third_party/rapidjson/include',
     ], )
 
 cc_library(
     name='eigen',
     transitive_compiler_flags=[
-        '-isystem src/github.com/apronchenkov/third_party/eigen-include',
+        '-I src/github.com/apronchenkov/third_party/eigen-include',
     ], )
 
 cc_library(
@@ -31,17 +31,17 @@ cc_library(
     ],
     compiler_flags=[
         '-DNDEBUG',
-        '-isystem src/github.com/apronchenkov/third_party/http-parser-include/http_parser',
+        '-I src/github.com/apronchenkov/third_party/http-parser-include/http_parser',
     ],
     transitive_compiler_flags=[
-        '-isystem src/github.com/apronchenkov/third_party/http-parser-include',
+        '-I src/github.com/apronchenkov/third_party/http-parser-include',
         '-DHTTP_MAX_HEADER_SIZE=4096',
     ], )
 
 cc_library(
     name='uthash',
     transitive_compiler_flags=[
-        '-isystem src/github.com/apronchenkov/third_party/uthash-include',
+        '-I src/github.com/apronchenkov/third_party/uthash-include',
     ], )
 
 cc_library(
@@ -51,7 +51,7 @@ cc_library(
         'fmt/src/posix.cc',
     ],
     transitive_compiler_flags=[
-        '-isystem src/github.com/apronchenkov/third_party/fmt/include',
+        '-I src/github.com/apronchenkov/third_party/fmt/include',
     ],
     compiler_flags=[
         '-DNDEBUG=1',
@@ -96,14 +96,13 @@ cc_library(
         'double-conversion/double-conversion/strtod.cc',
     ],
     transitive_compiler_flags=[
-        '-isystem src/github.com/apronchenkov/third_party/double-conversion-include',
+        '-I src/github.com/apronchenkov/third_party/double-conversion-include',
     ],
     compiler_flags=[
         '-Wall',
         '-Werror',
         '-O3',
         '-DNDEBUG',
-	'-I src/github.com/apronchenkov/third_party/double-conversion',
     ], )
 
 SQLITE_COMPILER_FLAGS = [
@@ -137,11 +136,9 @@ cc_library(
         'sqlite-amalgamation/sqlite3.c',
     ],
     transitive_compiler_flags=[
-        '-isystem src/github.com/apronchenkov/third_party/sqlite-include',
+        '-I src/github.com/apronchenkov/third_party/sqlite-include',
     ],
-    compiler_flags=[
-        '-Isrc/github.com/apronchenkov/third_party/sqlite-include',
-    ] + SQLITE_COMPILER_FLAGS, )
+    compiler_flags=SQLITE_COMPILER_FLAGS, )
 
 # cc_binary(
 #     name='sqlite_shell',
@@ -162,7 +159,7 @@ if os.uname().sysname == 'Darwin':
     cc_library(
         name='crypto',
         transitive_compiler_flags=[
-            '-isystem /usr/local/opt/openssl/include',
+            '-I /usr/local/opt/openssl/include',
         ],
         linker_flags=[
             '-L/usr/local/opt/openssl/lib',
@@ -171,7 +168,7 @@ if os.uname().sysname == 'Darwin':
     cc_library(
         name='ssl',
         transitive_compiler_flags=[
-            '-isystem /usr/local/opt/openssl/include',
+            '-I /usr/local/opt/openssl/include',
         ],
         linker_flags=[
             '-L/usr/local/opt/openssl/lib',
@@ -204,7 +201,7 @@ cc_library(
     transitive_compiler_flags=[
         '-DASIO_STANDALONE',
         '-DASIO_SEPARATE_COMPILATION',
-        '-isystem src/github.com/apronchenkov/third_party/asio/asio/include',
+        '-I src/github.com/apronchenkov/third_party/asio/asio/include',
     ],
     deps=[
         ':ssl',
