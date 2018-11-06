@@ -103,6 +103,7 @@ cc_library(
         '-Werror',
         '-O3',
         '-DNDEBUG',
+	'-I src/github.com/apronchenkov/third_party/double-conversion',
     ], )
 
 SQLITE_COMPILER_FLAGS = [
