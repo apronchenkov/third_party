@@ -32,6 +32,7 @@ cc_library(
     compiler_flags=[
         '-DNDEBUG',
         '-I src/github.com/apronchenkov/third_party/http-parser-include/http_parser',
+        '-Wno-shadow=compatible-local',
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/http-parser-include',
@@ -103,12 +104,15 @@ cc_library(
         '-Werror',
         '-O3',
         '-DNDEBUG',
-    ], )
+    ],
+)
 
 SQLITE_COMPILER_FLAGS = [
     '-O3',
     '-Wno-unused-parameter',
     '-Wno-overlength-strings',
+    '-Wno-implicit-fallthrough',
+    '-Wno-empty-body',
     '-DNDEBUG=1',
     # Recommended Compile-time Options (https://www.sqlite.org/compile.html)
     '-DSQLITE_THREADSAFE=0',
