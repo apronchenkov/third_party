@@ -210,3 +210,9 @@ cc_library(
     deps=[
         ':ssl',
     ], )
+
+cc_library(
+    name='gsl',
+    transitive_compiler_flags=[
+        '-I src/github.com/apronchenkov/third_party/GSL/include',
+    ], )
