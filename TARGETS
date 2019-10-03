@@ -234,7 +234,7 @@ else:
     ]
 
 cc_library(
-    name='lua_core',
+    name='lua_5_3_5',
     srcs=[
         # core
         'lua-5.3.5/lapi.c',
@@ -277,17 +277,21 @@ cc_library(
     compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/lua-5.3.5',
     ],
-    transitive_compiler_flags=lua_core_transitive_compiler_flags, )
+    transitive_compiler_flags=[
+        '-I src/github.com/apronchenkov/third_party/lua-5.3.5-include',
+    ] + lua_core_transitive_compiler_flags, )
 
-cc_binary(
-    name='lua_bin',
+cc_library(
+    name='linenoise_ng',
     srcs=[
-        'lua-5.3.5/lua.c',
-    ],
-    deps=[
-        ':lua_core',
+        'linenoise-ng/src/ConvertUTF.cpp',
+        'linenoise-ng/src/linenoise.cpp',
+        'linenoise-ng/src/wcwidth.cpp',
     ],
     compiler_flags=[
-        '-I src/github.com/apronchenkov/third_party/lua-5.3.5',
+        '-I src/github.com/apronchenkov/third_party/linenoise-ng/src',
+        '-Wno-keyword-macro',
     ],
-    linker_flags=lua_bin_linker_flag, )
+    transitive_compiler_flags=[
+        '-I src/github.com/apronchenkov/third_party/linenoise-ng/include',
+    ], )

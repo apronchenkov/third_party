@@ -31,3 +31,7 @@
 [submodule "lua-5.3.5"]
 	path = lua-5.3.5
 	url = https://github.com/lua/lua.git
+[submodule "linenoise-ng"]
+	path = linenoise-ng
+	url = https://github.com/arangodb/linenoise-ng.git
+
