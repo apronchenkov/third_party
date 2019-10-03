@@ -28,3 +28,6 @@
 [submodule "GSL"]
 	path = GSL
 	url = https://github.com/microsoft/GSL.git
+[submodule "lua-5.3.5"]
+	path = lua-5.3.5
+	url = https://github.com/lua/lua.git
