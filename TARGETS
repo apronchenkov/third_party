@@ -222,15 +222,13 @@ if os.uname().sysname == 'Darwin':
     lua_core_transitive_compiler_flags = [
         '-DLUA_USE_MACOSX',
     ]
-    lua_bin_linker_flag = [
-        '-lreadline',
-    ]
+    lua_core_linker_flag = []
 else:
     lua_core_transitive_compiler_flags = [
         '-DLUA_USE_LINUX',
     ]
-    lua_bin_linker_flag = [
-        '-lreadline',
+    lua_core_linker_flag = [
+        '-ldl',
     ]
 
 cc_library(
@@ -279,7 +277,8 @@ cc_library(
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/lua-5.3.5-include',
-    ] + lua_core_transitive_compiler_flags, )
+    ] + lua_core_transitive_compiler_flags,
+    linker_flags=lua_core_linker_flag, )
 
 cc_library(
     name='linenoise_ng',
