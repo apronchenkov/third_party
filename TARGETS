@@ -294,3 +294,64 @@ cc_library(
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/linenoise-ng/include',
     ], )
+
+if os.uname().sysname == 'Darwin':
+    absl_linker_flag = [
+        '-framework CoreFoundation',
+    ]
+else:
+    absl_linker_flag = []
+
+cc_library(
+    name='absl',
+    srcs=[
+        'abseil-cpp/absl/base/dynamic_annotations.cc',
+        'abseil-cpp/absl/base/internal/cycleclock.cc',
+        'abseil-cpp/absl/base/internal/low_level_alloc.cc',
+        'abseil-cpp/absl/base/internal/raw_logging.cc',
+        'abseil-cpp/absl/base/internal/scoped_set_env.cc',
+        'abseil-cpp/absl/base/internal/spinlock.cc',
+        'abseil-cpp/absl/base/internal/spinlock_wait.cc',
+        'abseil-cpp/absl/base/internal/sysinfo.cc',
+        'abseil-cpp/absl/base/internal/thread_identity.cc',
+        'abseil-cpp/absl/base/internal/throw_delegate.cc',
+        'abseil-cpp/absl/base/internal/unscaledcycleclock.cc',
+        'abseil-cpp/absl/base/log_severity.cc',
+        'abseil-cpp/absl/container/internal/hashtablez_sampler.cc',
+        'abseil-cpp/absl/container/internal/hashtablez_sampler_force_weak_definition.cc',
+        'abseil-cpp/absl/container/internal/raw_hash_set.cc',
+        'abseil-cpp/absl/debugging/stacktrace.cc',
+        'abseil-cpp/absl/debugging/symbolize.cc',
+        'abseil-cpp/absl/hash/internal/city.cc',
+        'abseil-cpp/absl/hash/internal/hash.cc',
+        'abseil-cpp/absl/numeric/int128.cc',
+        'abseil-cpp/absl/synchronization/internal/create_thread_identity.cc',
+        'abseil-cpp/absl/synchronization/internal/graphcycles.cc',
+        'abseil-cpp/absl/synchronization/internal/per_thread_sem.cc',
+        'abseil-cpp/absl/synchronization/internal/waiter.cc',
+        'abseil-cpp/absl/synchronization/mutex.cc',
+        'abseil-cpp/absl/time/clock.cc',
+        'abseil-cpp/absl/time/duration.cc',
+        'abseil-cpp/absl/time/internal/cctz/src/civil_time_detail.cc',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_fixed.cc',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_fixed.h',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_format.cc',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_if.cc',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_if.h',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_impl.cc',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_impl.h',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_info.cc',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_info.h',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_libc.cc',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_libc.h',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_lookup.cc',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_posix.cc',
+        'abseil-cpp/absl/time/internal/cctz/src/time_zone_posix.h',
+        'abseil-cpp/absl/time/internal/cctz/src/tzfile.h',
+        'abseil-cpp/absl/time/internal/cctz/src/zone_info_source.cc',
+        'abseil-cpp/absl/time/time.cc',
+    ],
+    transitive_compiler_flags=[
+        '-I src/github.com/apronchenkov/third_party/abseil-cpp',
+    ],
+    linker_flags=absl_linker_flag, )

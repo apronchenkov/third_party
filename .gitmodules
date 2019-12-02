@@ -35,3 +35,6 @@
 	path = linenoise-ng
 	url = https://github.com/arangodb/linenoise-ng.git
 
+[submodule "abseil-cpp"]
+	path = abseil-cpp
+	url = https://github.com/abseil/abseil-cpp.git
