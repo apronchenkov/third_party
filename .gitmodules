@@ -38,3 +38,6 @@
 [submodule "abseil-cpp"]
 	path = abseil-cpp
 	url = https://github.com/abseil/abseil-cpp.git
+[submodule "google-benchmark"]
+	path = benchmark
+	url = https://github.com/google/benchmark.git

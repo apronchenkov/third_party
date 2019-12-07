@@ -5,11 +5,73 @@ cc_library(
         'googletest/googletest/src/gtest_main.cc',
     ],
     compiler_flags=[
-        '-Isrc/github.com/apronchenkov/third_party/googletest/googletest',
+        '-I src/github.com/apronchenkov/third_party/googletest/googletest',
         '-Wno-missing-field-initializers',
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/googletest/googletest/include',
+    ], )
+
+cc_library(
+    name='benchmark',
+    srcs=[
+        'benchmark/src/arraysize.h',
+        'benchmark/src/benchmark.cc',
+        'benchmark/src/benchmark_api_internal.cc',
+        'benchmark/src/benchmark_api_internal.h',
+        'benchmark/src/benchmark_name.cc',
+        'benchmark/src/benchmark_register.cc',
+        'benchmark/src/benchmark_register.h',
+        'benchmark/src/benchmark_runner.cc',
+        'benchmark/src/benchmark_runner.h',
+        'benchmark/src/check.h',
+        'benchmark/src/colorprint.cc',
+        'benchmark/src/colorprint.h',
+        'benchmark/src/commandlineflags.cc',
+        'benchmark/src/commandlineflags.h',
+        'benchmark/src/complexity.cc',
+        'benchmark/src/complexity.h',
+        'benchmark/src/console_reporter.cc',
+        'benchmark/src/counter.cc',
+        'benchmark/src/counter.h',
+        'benchmark/src/csv_reporter.cc',
+        'benchmark/src/cycleclock.h',
+        'benchmark/src/internal_macros.h',
+        'benchmark/src/json_reporter.cc',
+        'benchmark/src/log.h',
+        'benchmark/src/mutex.h',
+        'benchmark/src/re.h',
+        'benchmark/src/reporter.cc',
+        'benchmark/src/sleep.cc',
+        'benchmark/src/sleep.h',
+        'benchmark/src/statistics.cc',
+        'benchmark/src/statistics.h',
+        'benchmark/src/string_util.cc',
+        'benchmark/src/string_util.h',
+        'benchmark/src/sysinfo.cc',
+        'benchmark/src/thread_manager.h',
+        'benchmark/src/thread_timer.h',
+        'benchmark/src/timers.cc',
+        'benchmark/src/timers.h',
+    ],
+    compiler_flags=[
+        '-Wno-deprecated-declarations',
+        '-DNDEBUG',
+    ],
+    transitive_compiler_flags=[
+        '-I src/github.com/apronchenkov/third_party/benchmark/include',
+    ],
+    linker_flags=[
+        '-lpthread',
+    ], )
+
+cc_library(
+    name='benchmark_main',
+    srcs=[
+        'benchmark/src/benchmark_main.cc',
+    ],
+    deps=[
+        ':benchmark',
     ], )
 
 cc_library(
@@ -166,7 +228,7 @@ if os.uname().sysname == 'Darwin':
             '-I /usr/local/opt/openssl/include',
         ],
         linker_flags=[
-            '-L/usr/local/opt/openssl/lib',
+            '-L /usr/local/opt/openssl/lib',
             '-lcrypto',
         ], )
     cc_library(
@@ -175,7 +237,7 @@ if os.uname().sysname == 'Darwin':
             '-I /usr/local/opt/openssl/include',
         ],
         linker_flags=[
-            '-L/usr/local/opt/openssl/lib',
+            '-L /usr/local/opt/openssl/lib',
             '-lssl',
         ],
         deps=[
