@@ -41,3 +41,6 @@
 [submodule "google-benchmark"]
 	path = benchmark
 	url = https://github.com/google/benchmark.git
+[submodule "BLAKE2"]
+	path = BLAKE2
+	url = https://github.com/BLAKE2/BLAKE2.git

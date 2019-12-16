@@ -416,4 +416,20 @@ cc_library(
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/abseil-cpp',
     ],
-    linker_flags=absl_linker_flag, )
+
+
+cc_library(
+    name='blake2',
+    srcs=[
+        'BLAKE2/ref/blake2b-ref.c',
+        'BLAKE2/ref/blake2bp-ref.c',
+        'BLAKE2/ref/blake2s-ref.c',
+        'BLAKE2/ref/blake2sp-ref.c',
+        'BLAKE2/ref/blake2xb-ref.c',
+        'BLAKE2/ref/blake2xs-ref.c',
+        'BLAKE2/ref/blake2-impl.h',
+        'BLAKE2/ref/blake2.h',
+    ],
+    transitive_compiler_flags=[
+        '-I src/github.com/apronchenkov/third_party/blake2-include',
+    ], )
