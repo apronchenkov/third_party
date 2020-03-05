@@ -1,3 +1,5 @@
+import os
+
 cc_library(
     name='gtest',
     srcs=[
@@ -220,7 +222,6 @@ cc_library(
 #     ], )
 
 # crypto/ssl
-import os
 if os.uname().sysname == 'Darwin':
     cc_library(
         name='crypto',
@@ -352,6 +353,7 @@ cc_library(
     compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/linenoise-ng/src',
         '-Wno-keyword-macro',
+        '-Wno-implicit-fallthrough',
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/linenoise-ng/include',
@@ -415,7 +417,8 @@ cc_library(
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/abseil-cpp',
-    ], )
+    ],
+    linker_flags=absl_linker_flag, )
 
 
 cc_library(
