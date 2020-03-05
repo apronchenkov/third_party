@@ -415,7 +415,7 @@ cc_library(
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/abseil-cpp',
-    ],
+    ], )
 
 
 cc_library(
