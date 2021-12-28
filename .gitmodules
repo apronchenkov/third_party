@@ -44,3 +44,6 @@
 [submodule "BLAKE2"]
 	path = BLAKE2
 	url = https://github.com/BLAKE2/BLAKE2.git
+[submodule "eigen"]
+	path = eigen
+	url = https://gitlab.com/libeigen/eigen.git

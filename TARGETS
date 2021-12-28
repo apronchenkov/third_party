@@ -12,7 +12,8 @@ cc_library(
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/googletest/googletest/include',
-    ], )
+    ],
+)
 
 cc_library(
     name='benchmark',
@@ -42,6 +43,8 @@ cc_library(
         'benchmark/src/json_reporter.cc',
         'benchmark/src/log.h',
         'benchmark/src/mutex.h',
+        'benchmark/src/perf_counters.cc',
+        'benchmark/src/perf_counters.h',
         'benchmark/src/re.h',
         'benchmark/src/reporter.cc',
         'benchmark/src/sleep.cc',
@@ -65,7 +68,8 @@ cc_library(
     ],
     linker_flags=[
         '-lpthread',
-    ], )
+    ],
+)
 
 cc_library(
     name='benchmark_main',
@@ -74,19 +78,22 @@ cc_library(
     ],
     deps=[
         ':benchmark',
-    ], )
+    ],
+)
 
 cc_library(
     name='rapidjson',
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/rapidjson/include',
-    ], )
+    ],
+)
 
 cc_library(
     name='eigen',
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/eigen-include',
-    ], )
+    ],
+)
 
 cc_library(
     name='http_parser',
@@ -96,78 +103,54 @@ cc_library(
     compiler_flags=[
         '-DNDEBUG',
         '-I src/github.com/apronchenkov/third_party/http-parser-include/http_parser',
-        '-Wno-shadow=compatible-local',
+        #'-Wno-shadow=compatible-local',
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/http-parser-include',
         '-DHTTP_MAX_HEADER_SIZE=4096',
-    ], )
+    ],
+)
 
 cc_library(
     name='uthash',
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/uthash-include',
-    ], )
+    ],
+)
 
 cc_library(
     name='fmt',
     srcs=[
         'fmt/src/format.cc',
-        'fmt/src/posix.cc',
+        'fmt/src/os.cc',
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/fmt/include',
     ],
     compiler_flags=[
         '-DNDEBUG=1',
-        '-Wall',
-        '-Wextra',
-        '-Wpedantic',
-        '-Wno-weak-vtables',
-        '-Wno-padded',
-        '-Wno-gnu-statement-expression',
-        '-Wno-c++98-compat',
-        '-Wno-c++98-compat-pedantic',
-        '-Wno-reserved-id-macro',
-        '-Wno-global-constructors',
-        '-Wno-disabled-macro-expansion',
-        '-Wno-switch-enum',
-        '-Wno-documentation-unknown-command',
-        '-Wno-gnu-string-literal-operator-template',
-        '-Wno-unused-member-function',
-        '-Wno-format-nonliteral',
-        '-Wno-missing-noreturn',
-        '-Wno-undefined-func-template',
-        '-Wno-shadow',
-        '-Wno-sign-conversion',
-        '-Wno-used-but-marked-unused',
-        '-Wno-covered-switch-default',
-        '-Wno-missing-variable-declarations',
-        '-Wno-double-promotion',
-        '-Wno-zero-as-null-pointer-constant',
-        '-Wno-gnu-string-literal-operator-template',
-    ], )
+    ],
+)
 
 cc_library(
     name='double_conversion',
     srcs=[
-        'double-conversion/double-conversion/bignum.cc',
         'double-conversion/double-conversion/bignum-dtoa.cc',
+        'double-conversion/double-conversion/bignum.cc',
         'double-conversion/double-conversion/cached-powers.cc',
-        'double-conversion/double-conversion/diy-fp.cc',
-        'double-conversion/double-conversion/double-conversion.cc',
+        'double-conversion/double-conversion/double-to-string.cc',
         'double-conversion/double-conversion/fast-dtoa.cc',
         'double-conversion/double-conversion/fixed-dtoa.cc',
+        'double-conversion/double-conversion/string-to-double.cc',
         'double-conversion/double-conversion/strtod.cc',
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/double-conversion-include',
     ],
     compiler_flags=[
-        '-Wall',
-        '-Werror',
+        '-I src/github.com/apronchenkov/third_party/double-conversion-include/double-conversion',
         '-O3',
-        '-DNDEBUG',
+        '-DNDEBUG=1',
     ],
 )
 
@@ -206,7 +189,8 @@ cc_library(
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/sqlite-include',
     ],
-    compiler_flags=SQLITE_COMPILER_FLAGS, )
+    compiler_flags=SQLITE_COMPILER_FLAGS,
+)
 
 # cc_binary(
 #     name='sqlite_shell',
@@ -231,7 +215,8 @@ if os.uname().sysname == 'Darwin':
         linker_flags=[
             '-L /usr/local/opt/openssl/lib',
             '-lcrypto',
-        ], )
+        ],
+    )
     cc_library(
         name='ssl',
         transitive_compiler_flags=[
@@ -243,13 +228,15 @@ if os.uname().sysname == 'Darwin':
         ],
         deps=[
             ':crypto',
-        ], )
+        ],
+    )
 else:
     cc_library(
         name='crypto',
         linker_flags=[
             '-lcrypto',
-        ], )
+        ],
+    )
     cc_library(
         name='ssl',
         linker_flags=[
@@ -257,7 +244,8 @@ else:
         ],
         deps=[
             ':crypto',
-        ], )
+        ],
+    )
 
 cc_library(
     name='asio',
@@ -272,14 +260,15 @@ cc_library(
     ],
     deps=[
         ':ssl',
-    ], )
+    ],
+)
 
 cc_library(
     name='gsl',
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/GSL/include',
-    ], )
-
+    ],
+)
 
 if os.uname().sysname == 'Darwin':
     lua_core_transitive_compiler_flags = [
@@ -337,11 +326,13 @@ cc_library(
     ],
     compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/lua-5.3.5',
+        '-Wno-string-plus-int',
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/lua-5.3.5-include',
     ] + lua_core_transitive_compiler_flags,
-    linker_flags=lua_core_linker_flag, )
+    linker_flags=lua_core_linker_flag,
+)
 
 cc_library(
     name='linenoise_ng',
@@ -357,7 +348,8 @@ cc_library(
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/linenoise-ng/include',
-    ], )
+    ],
+)
 
 if os.uname().sysname == 'Darwin':
     absl_linker_flag = [
@@ -369,7 +361,6 @@ else:
 cc_library(
     name='absl',
     srcs=[
-        'abseil-cpp/absl/base/dynamic_annotations.cc',
         'abseil-cpp/absl/base/internal/cycleclock.cc',
         'abseil-cpp/absl/base/internal/low_level_alloc.cc',
         'abseil-cpp/absl/base/internal/raw_logging.cc',
@@ -388,6 +379,7 @@ cc_library(
         'abseil-cpp/absl/debugging/symbolize.cc',
         'abseil-cpp/absl/hash/internal/city.cc',
         'abseil-cpp/absl/hash/internal/hash.cc',
+        'abseil-cpp/absl/hash/internal/low_level_hash.cc',
         'abseil-cpp/absl/numeric/int128.cc',
         'abseil-cpp/absl/synchronization/internal/create_thread_identity.cc',
         'abseil-cpp/absl/synchronization/internal/graphcycles.cc',
@@ -418,8 +410,8 @@ cc_library(
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/abseil-cpp',
     ],
-    linker_flags=absl_linker_flag, )
-
+    linker_flags=absl_linker_flag,
+)
 
 cc_library(
     name='blake2',
@@ -435,4 +427,5 @@ cc_library(
     ],
     transitive_compiler_flags=[
         '-I src/github.com/apronchenkov/third_party/blake2-include',
-    ], )
+    ],
+)
