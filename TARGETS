@@ -254,8 +254,10 @@ cc_library(
         'asio/asio/src/asio_ssl.cpp',
     ],
     transitive_compiler_flags=[
-        '-DASIO_STANDALONE',
+        '-DASIO_HAS_STD_INVOKE_RESULT',
+        '-DASIO_NO_DEPRECATED',
         '-DASIO_SEPARATE_COMPILATION',
+        '-DASIO_STANDALONE',
         '-I src/github.com/apronchenkov/third_party/asio/asio/include',
     ],
     deps=[
