@@ -1,5 +1,16 @@
 import os
 
+if os.uname().sysname == 'Darwin':
+    import shutil
+    darwin_homebrew_path = shutil.which('brew')
+    expected_suffix = '/bin/brew'
+    if darwin_homebrew_path and darwin_homebrew_path.endswith(expected_suffix):
+        darwin_homebrew_path = darwin_homebrew_path[:-len(expected_suffix)
+                                                    ] + '/opt'
+    else:
+        darwin_homebrew_path = None
+
+
 cc_library(
     name='gtest',
     srcs=[
@@ -206,24 +217,25 @@ cc_library(
 #     ], )
 
 # crypto/ssl
-if os.uname().sysname == 'Darwin':
+# crypto,ssl
+if os.uname().sysname == 'Darwin' and darwin_homebrew_path:
     cc_library(
         name='crypto',
         transitive_compiler_flags=[
-            '-I /usr/local/opt/openssl/include',
+            '-isystem {}/openssl/include'.format(darwin_homebrew_path),
         ],
         linker_flags=[
-            '-L /usr/local/opt/openssl/lib',
+            '-L {}/openssl/lib'.format(darwin_homebrew_path),
             '-lcrypto',
         ],
     )
     cc_library(
         name='ssl',
         transitive_compiler_flags=[
-            '-I /usr/local/opt/openssl/include',
+            '-isystem {}/openssl/include'.format(darwin_homebrew_path),
         ],
         linker_flags=[
-            '-L /usr/local/opt/openssl/lib',
+            '-L {}/openssl/lib'.format(darwin_homebrew_path),
             '-lssl',
         ],
         deps=[
