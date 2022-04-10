@@ -4,9 +4,6 @@
 [submodule "rapidjson"]
 	path = rapidjson
 	url = https://github.com/Tencent/rapidjson.git
-[submodule "eigen-git-mirror"]
-	path = eigen-git-mirror
-	url = https://github.com/eigenteam/eigen-git-mirror.git
 [submodule "http-parser"]
 	path = http-parser
 	url = https://github.com/nodejs/http-parser.git
