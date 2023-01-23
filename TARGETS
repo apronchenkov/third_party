@@ -5,11 +5,10 @@ if os.uname().sysname == 'Darwin':
     darwin_homebrew_path = shutil.which('brew')
     expected_suffix = '/bin/brew'
     if darwin_homebrew_path and darwin_homebrew_path.endswith(expected_suffix):
-        darwin_homebrew_path = darwin_homebrew_path[:-len(expected_suffix)
-                                                    ] + '/opt'
+        darwin_homebrew_path = darwin_homebrew_path[:-len(expected_suffix
+                                                          )] + '/opt'
     else:
         darwin_homebrew_path = None
-
 
 cc_library(
     name='gtest',
@@ -222,20 +221,20 @@ if os.uname().sysname == 'Darwin' and darwin_homebrew_path:
     cc_library(
         name='crypto',
         transitive_compiler_flags=[
-            '-isystem {}/openssl/include'.format(darwin_homebrew_path),
+            '-isystem {}/openssl@1.1/include'.format(darwin_homebrew_path),
         ],
         linker_flags=[
-            '-L {}/openssl/lib'.format(darwin_homebrew_path),
+            '-L {}/openssl@1.1/lib'.format(darwin_homebrew_path),
             '-lcrypto',
         ],
     )
     cc_library(
         name='ssl',
         transitive_compiler_flags=[
-            '-isystem {}/openssl/include'.format(darwin_homebrew_path),
+            '-isystem {}/openssl@1.1/include'.format(darwin_homebrew_path),
         ],
         linker_flags=[
-            '-L {}/openssl/lib'.format(darwin_homebrew_path),
+            '-L {}/openssl@1.1/lib'.format(darwin_homebrew_path),
             '-lssl',
         ],
         deps=[
@@ -443,3 +442,20 @@ cc_library(
         '-I src/github.com/apronchenkov/third_party/blake2-include',
     ],
 )
+
+if os.uname().sysname == 'Darwin':
+    import subprocess
+    import os.path
+    try:
+        ncurses_path = subprocess.check_output(['brew', '--prefix', 'ncurses'],
+                                               encoding='utf8').rstrip()
+        ncursesw_config = os.path.join(ncurses_path, 'bin/ncursesw6-config')
+        ncursesw_cflags = subprocess.check_output(
+            [ncursesw_config, '--cflags'], encoding='utf8').rstrip()
+        ncursesw_ldflags = subprocess.check_output([ncursesw_config, '--libs'],
+                                                   encoding='utf8').rstrip()
+        cc_library(name='ncursesw',
+                   transitive_compiler_flags=[ncursesw_cflags],
+                   linker_flags=[ncursesw_ldflags])
+    except subprocess.CalledProcessError:
+        pass
